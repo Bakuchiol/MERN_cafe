@@ -11,7 +11,7 @@ import './App.css';
 
 function App() {
   // array destructuring
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(null)
   return (
     <main className="App">
         { 

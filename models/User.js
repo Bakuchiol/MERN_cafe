@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt') //able to has strings (password)
+const bcrypt = require('bcrypt') //able to hash strings (password)
 
 const SALT_ROUNDS = 6;
 
@@ -14,6 +14,7 @@ const userSchema = new Schema(
       lowercase: true,
       required: true,
     },
+    // validation
     password: {
       type: String,
       trim: true,
@@ -22,6 +23,7 @@ const userSchema = new Schema(
     },
   },
   {
+    // date & time created and updated
     timestamps: true,
     // Even though it's hashed - don't serialize the password
     toJSON: {
@@ -32,7 +34,7 @@ const userSchema = new Schema(
     },
   }
 );
-
+// password hasnt changed put hashed pass in using bcrypt
 userSchema.pre('save', async function(next) {
     // 'this' is the user doc
     if (!this.isModified('password')) return next();

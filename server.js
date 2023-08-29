@@ -16,9 +16,15 @@ app.use(express.json());
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
+// Middleware to verify token and assign user object of payload to req.user.
+// Be sure to mount before routes
+// app.use(require('./config/checkToken'));
+
 // *** API ***
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+
+const ensureLoggedIn = require('./config/ensureLoggedIn')
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
 app.get('/*', function(req, res) {

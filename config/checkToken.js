@@ -1,8 +1,11 @@
+// ** JUST FOR PRACTICE MAKING MIDDLEWARE **
+
+// all middleware has access to request and response
 const jwt = require('jsonwebtoken');
 
 module.exports = function(req, res, next) {
   // Check for the token being sent in a header or a query parameter
-  let token = req.get('Authorization') || req.query.token;
+  let token = req.get('Authorization') || req.query.token; // ? in url bar
   if (token) {
     token = token.replace('Bearer ', '');
     // Check if token is valid and not expired

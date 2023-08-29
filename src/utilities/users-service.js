@@ -53,3 +53,9 @@ export function getUser() {
 export function logOut(){
   localStorage.removeItem('token')
 }
+
+// practice
+export async function checkToken(){
+  alert('clicked');
+  return usersAPI.checkToken().then(dateStr => new Date(dateStr))
+}

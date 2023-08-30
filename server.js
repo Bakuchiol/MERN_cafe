@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
+require('./config/database');
 
 const app = express();
 
@@ -23,8 +24,10 @@ app.use(require('./config/checkToken'));
 // *** API ***
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
-
+// Protect the API routes below from anonymous users
 const ensureLoggedIn = require('./config/ensureLoggedIn')
+app.use('/api/items', ensureLoggedIn, require('./routes/api/items'));
+app.use('/api/orders', ensureLoggedIn, require('./routes/api/orders'));
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX requests
 app.get('/*', function(req, res) {
